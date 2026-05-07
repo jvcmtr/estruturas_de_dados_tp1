@@ -8,6 +8,7 @@ class BinaryHeap:
         self.insert_bulk(data)
 
     # ================ FUNCIONALIDADES "PUBLICAS" ================ 
+    # Questao 3.1 
     def insert(self, val):
         self.arr.append(val)
         self._heapify_up(self._get_last_idx())
@@ -91,6 +92,8 @@ class BinaryHeap:
         pai_idx = self._get_parent(start)
         if pai_idx >= 0:
             if not self._has_priority_over(pai_idx, start):
+                # Exercício 3.2
+                # print(f"[HEAPIFY UP] Realizando troca entre os elementos {self.arr[pai_idx]}(idx:{pai_idx}) e {self.arr[start]}(idx:{start})")
                 self._troca(pai_idx, start)
                 self._heapify_up(pai_idx)
 
