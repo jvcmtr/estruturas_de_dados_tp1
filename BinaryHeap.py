@@ -1,11 +1,13 @@
 
 
-class Heap:
+class BinaryHeap:
     def __init__(self, data = [], is_min=True):
+        # Exercicio 2.1 e 2.2
         self.arr = []
         self.is_min = is_min
         self.insert_bulk(data)
 
+    # ================ FUNCIONALIDADES "PUBLICAS" ================ 
     def insert(self, val):
         self.arr.append(val)
         self._heapify_up(self._get_last_idx())
@@ -32,27 +34,34 @@ class Heap:
             #     print(f"Erro ao inserir o elemento : {i}")
             #     return
 
+    # ================ OVERRIDES ================ 
     def __len__(self):
         return len(self.arr)
 
     def __str__(self):
         return f"{self.arr}"
     
+    # ================ FUNCIONALIDADES INTERNAS ================ 
     def _get_last_idx(self):
         return len(self.arr)-1
 
+    # Para que a Heap possa funcionar tanto como maxima quanto como minima
+    # abstraimos o conceito de prioridade
     def _has_priority_over(self, a, b):
         if self.is_min:
             return self.arr[a] < self.arr[b]
         return self.arr[a] > self.arr[b]
     
+    # Exercício 2.3
     def _get_left(self, idx):
         return 2*idx+1
 
+    # Exercício 2.3
     def _get_right(self, idx):
         return 2*idx+2
         pass
 
+    # Exercício 2.3
     def _get_parent(self, idx):
         return (idx-1)//2
         pass
@@ -60,21 +69,23 @@ class Heap:
     def _troca(self, a, b):
         self.arr[a], self.arr[b] = self.arr[b], self.arr[a]
 
+    # Exercício 2.4
     def _test(self):
         return self._check(0)
     
     def _check(self, idx):
-        if idx > self._get_last_idx():
-            return True
+        last = self._get_last_idx()
+
+        if idx > last: return True
         l = self._get_left(idx)
         r = self._get_right(idx)
-        valid_l = self._has_priority_over(idx, l) if l <= self._get_last_idx() else True
-        valid_r = self._has_priority_over(idx, r) if r <= self._get_last_idx() else True
-        ok = valid_l and valid_r and self._check(l) and self._check(r)
-        if not ok:
-            print(f"Atual (id:{idx}) mais prioritario que l (id:{l}) : {valid_l}")
-            print(f"Atual (id:{idx}) mais prioritario que r (id:{r}) : {valid_r}")
-        return ok
+
+        if r <= last and l > last: return False
+
+        valid_l = l > last or self._has_priority_over(idx, l)
+        valid_r = r > last or self._has_priority_over(idx, r)
+
+        return valid_l and valid_r and self._check(l) and self._check(r)
 
     def _heapify_up(self, start):
         pai_idx = self._get_parent(start)
