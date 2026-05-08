@@ -13,6 +13,10 @@ class BinaryHeap:
         self.arr.append(val)
         self._heapify_up(self._get_last_idx())
 
+    # Questão 4.1
+    def extract_max(self):
+        return self.pop()
+
     def pop(self):
         if not self.arr:
             return None
@@ -119,9 +123,16 @@ class BinaryHeap:
         
         # Realiza as trocas e propaga
         if troca_l:
+            # Exercício 4.2
+            print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[l]}(idx:{l})")    
             self._troca(start, l)
             self._heapify_down(l)
         if troca_r:
+            # Exercício 4.2
+            print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[r]}(idx:{r})")    
             self._troca(start, r)
             self._heapify_down(r)
 
+
+
+        
