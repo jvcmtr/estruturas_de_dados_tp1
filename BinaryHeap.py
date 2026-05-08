@@ -39,6 +39,13 @@ class BinaryHeap:
             #     print(f"Erro ao inserir o elemento : {i}")
             #     return
 
+    # Questão 5.1
+    def contains(self, val):
+        for i in self.arr:
+            if i == val:
+                return True
+        return False
+
     # ================ OVERRIDES ================ 
     def __len__(self):
         return len(self.arr)
@@ -132,7 +139,6 @@ class BinaryHeap:
             print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[r]}(idx:{r})")    
             self._troca(start, r)
             self._heapify_down(r)
-
 
 
         
