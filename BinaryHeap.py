@@ -46,6 +46,23 @@ class BinaryHeap:
                 return True
         return False
 
+    # Exercicios 6.1, 6.2 e 6.3
+    def delete(self, val):
+        idx = self.find(val)
+        if idx == -1:
+            print(f"Valor ({val}) não existe na heap")
+            return
+
+        self._troca(self._get_last_idx(), idx)
+        removed = self._get_last_idx()
+        last = idx
+
+        if self._has_priority_over(removed, last):
+            self._heapify_up(removed )
+        if self._has_priority_over(last, removed):
+            self._heapify_down(removed )
+        self.arr.pop()
+
     # ================ OVERRIDES ================ 
     def __len__(self):
         return len(self.arr)
@@ -131,14 +148,17 @@ class BinaryHeap:
         # Realiza as trocas e propaga
         if troca_l:
             # Exercício 4.2
-            print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[l]}(idx:{l})")    
+            #print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[l]}(idx:{l})")    
             self._troca(start, l)
             self._heapify_down(l)
         if troca_r:
             # Exercício 4.2
-            print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[r]}(idx:{r})")    
+            #print(f"[HEAPIFY DOWN] Realizando troca entre os elementos {self.arr[start]}(idx:{start}) e {self.arr[r]}(idx:{r})")    
             self._troca(start, r)
             self._heapify_down(r)
 
-
-        
+    def find(self, val):
+        for i in range(len(self.arr)):
+            if self.arr[i] == val:
+                return i
+        return -1
