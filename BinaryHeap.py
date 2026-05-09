@@ -88,7 +88,6 @@ class BinaryHeap:
     # Exercício 2.3
     def _get_right(self, idx):
         return 2*idx+2
-        pass
 
     # Exercício 2.3
     def _get_parent(self, idx):
@@ -108,8 +107,6 @@ class BinaryHeap:
         if idx > last: return True
         l = self._get_left(idx)
         r = self._get_right(idx)
-
-        if r <= last and l > last: return False
 
         valid_l = l > last or self._has_priority_over(idx, l)
         valid_r = r > last or self._has_priority_over(idx, r)
